@@ -38,6 +38,10 @@ class CalculatriceTests: XCTestCase {
         calculator.addNumber("3")
         XCTAssert(calculator.numberOnScreen == "3")
     }
+    func testGivenaddNumber_whenTappedDotNumber_ThenreturnNumber () {
+        calculator.addNumber(".")
+        XCTAssert(calculator.numberOnScreen == "0.")
+    }
     func testGivenclearNumber_whenTappedClearButton_ThenreturnTrue() {
         calculator.clearNumber()
         XCTAssertTrue(calculator.numberOnScreen == "")
@@ -69,6 +73,14 @@ class CalculatriceTests: XCTestCase {
             waitForExpectations(timeout: 0.1, handler: nil)
         
     }
+    func testGivenCalculHasBeenDone_WhenResultAndAddNumber_ThenResultIsNewNumber(){
+    
+                calculator.numberOnScreen = "6 + 4 = 10"
+                calculator.addNumber("2")
+          
+                
+        XCTAssertEqual(calculator.numberOnScreen, "2")
+    }
     func testGivenCalculstringIsEmpty_WhenMakeMultiplicationOperation_ThenHaveResult(){
               
               calculator.addNumber("2")
@@ -78,6 +90,43 @@ class CalculatriceTests: XCTestCase {
               
         XCTAssertEqual(calculator.numberOnScreen, "2 x 3 = 6")
           }
+    func testGivenCalculStringLastWithOperator_WhenAddingOperator_ThenNotificationTriggered(){
+        calculator.numberOnScreen = "2 + "
+        expectation(forNotification: NSNotification.Name(rawValue: "error"), object: nil, handler: nil)
+        calculator.addOperations(" - ")
+        waitForExpectations(timeout: 0.1, handler: nil)
+    }
+    func testGivenNumberOnScreenIsEmpty_WhenMakeMinusOperation_ThenHaveResult(){
+        
+        calculator.addNumber("1")
+        calculator.addOperations("-")
+        calculator.addNumber("1")
+        calculator.equal()
+        
+        XCTAssertEqual(calculator.numberOnScreen, "1 - 1 = 0")
+    }
+    func testGivenCalculIsEmpty_WhenMakingVSeveralOperation_ThenResultIsCorrect(){
+      
+    calculator.addNumber("6")
+    calculator.addOperations("+")
+    calculator.addNumber("4")
+    calculator.equal()
+    calculator.addOperations("/")
+    calculator.addNumber("5")
+    calculator.equal()
+            
+    XCTAssertTrue(calculator.numberOnScreen == "10 / 5 = 2")
+      }
+    func testGivenNumberOnScreenIsEmpty_WhenDoOperation_ThenHaveResult(){
+        
+        calculator.addNumber("1")
+        calculator.addOperations("d")
+        calculator.addNumber("1")
+        calculator.equal()
+        
+        XCTAssertEqual(calculator.numberOnScreen, "11")
+    }
+    
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
