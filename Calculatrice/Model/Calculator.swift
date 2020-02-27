@@ -25,17 +25,49 @@ class Calculator {
     var canAddOperator: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
     }
+    var isLastElementNumber: Bool {
+        guard let last = elements.last else{
+            return false
+        }
+        return Double(last) != nil
+    }
     var expressionHaveResult: Bool {
         return numberOnScreen.firstIndex(of: "=") != nil
     }
     var divideByZero: Bool {
         return numberOnScreen.contains("/ 0")
     }
+    var currentNumberHasDecimal: Bool {
+        guard let last = elements.last else{
+            return false
+        }
+            if last.contains(".") {
+                  return true
+              } else {
+                  return false
+              }
+          }
+       
     func addNumber(_ number: String) {
         if expressionHaveResult {
             numberOnScreen = ""
         }
-        numberOnScreen.append(number)
+        if number == "." {
+            if !isLastElementNumber {
+                numberOnScreen.append("0.")
+            }else{
+                if !currentNumberHasDecimal {
+                    numberOnScreen.append(number)
+                    
+                }else{
+                    NotificationCenter.default.post(Notification(name: Notification.Name("error"),
+                    userInfo: ["message": "Le nombre à deja un point !"]))
+                }
+            }
+        }else{
+            numberOnScreen.append(number)
+        }
+        
     }
     func result() {
         if expressionHaveResult {
@@ -44,32 +76,35 @@ class Calculator {
             }
         }
     }
-    func dotPressed( left: Double, right: Double ) {
-        numberOnScreen = String(left + right)
-    }
     func clearNumber() {
         numberOnScreen = ""
     }
     func addOperations(_ element: String) {
         result()
-        if canAddOperator {
+        if canAddOperator && isLastElementNumber {
             switch element {
-            case " + ":
+            case "+":
                 numberOnScreen.append(" + ")
-            case " - ":
+            case "-":
                 numberOnScreen.append(" - ")
-            case " * ":
+            case "*":
                 numberOnScreen.append(" x ")
-            case " / ":
+            case "/":
                 numberOnScreen.append(" / ")
             case ".":
-                numberOnScreen.append(" . ")
+                numberOnScreen.append(".")
             default:
                 break
             }
         } else {
-            NotificationCenter.default.post(Notification(name: Notification.Name("error"),
-                                                         userInfo: ["message": "Un operateur est déja mis !"]))
+            
+            if !isLastElementNumber {
+                NotificationCenter.default.post(Notification(name: Notification.Name("error"),
+                userInfo: ["message": "Commencez par rentrer un chiffre !"]))
+            }else{
+                NotificationCenter.default.post(Notification(name: Notification.Name("error"),
+                userInfo: ["message": "Un operateur est déja mis !"]))
+            }
         }
     }
     func format(_ number: Double) -> String {
@@ -81,6 +116,7 @@ class Calculator {
     }
     // Create local copy of operations
     func calcul(left: Double, right: Double, operand: String) -> Double {
+        print(elements)
         var result: Double = 0
         switch operand {
         case "+": result = left + right
@@ -91,6 +127,7 @@ class Calculator {
         }
         return result
     }
+    
     func equal() {
         guard !expressionHaveResult else {
             return NotificationCenter.default.post(Notification(name: Notification.Name("error"),

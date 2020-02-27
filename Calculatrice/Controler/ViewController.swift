@@ -27,19 +27,19 @@ class ViewController: UIViewController {
         calcul.addNumber(numberText)
     }
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
-        calcul.addOperations(" + ")
+        calcul.addOperations("+")
     }
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        calcul.addOperations(" - ")
+        calcul.addOperations("-")
     }
     @IBAction func tappedDivideButton(_ sender: UIButton) {
-        calcul.addOperations(" / ")
+        calcul.addOperations("/")
     }
     @IBAction func tappedMultiplyButton(_ sender: UIButton) {
-        calcul.addOperations(" * ")
+        calcul.addOperations("*")
     }
     @IBAction func tappedDotButton(_ sender: UIButton) {
-        calcul.addNumber(" . ")
+        calcul.addNumber(".")
     }
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         calcul.equal()
