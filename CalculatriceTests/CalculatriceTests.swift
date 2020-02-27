@@ -57,10 +57,27 @@ class CalculatriceTests: XCTestCase {
         calculator.equal()
         calculator.equal()
         waitForExpectations(timeout: 0.1, handler: nil)
-        
-        
     }
     
+    func testGivenTheScreenStartsBlank_WhenTappedEquaButtonl_ThenreturnNotification() {
+        calculator.equal()
+
+        XCTAssert(calculator.numberOnScreen == "")
+        expectation(forNotification: NSNotification.Name(rawValue: "error"), object: nil, handler: nil)
+            calculator.equal()
+            calculator.equal()
+            waitForExpectations(timeout: 0.1, handler: nil)
+        
+    }
+    func testGivenCalculstringIsEmpty_WhenMakeMultiplicationOperation_ThenHaveResult(){
+              
+              calculator.addNumber("2")
+              calculator.addOperations("*")
+              calculator.addNumber("3")
+              calculator.equal()
+              
+        XCTAssertEqual(calculator.numberOnScreen, "2 x 3 = 6")
+          }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
