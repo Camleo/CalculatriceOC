@@ -13,7 +13,7 @@ class Calculator {
             NotificationCenter.default.post(Notification(name: Notification.Name("updateCalcul")))
         }
     }
-     var elements: [String] {
+    var elements: [String] {
         return  numberOnScreen.split(separator: " ").map { "\($0)" }
     }
     private var expressionIsCorrect: Bool {
@@ -41,13 +41,13 @@ class Calculator {
         guard let last = elements.last else{
             return false
         }
-            if last.contains(".") {
-                  return true
-              } else {
-                  return false
-              }
-          }
-       
+        if last.contains(".") {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func addNumber(_ number: String) {
         if expressionHaveResult {
             numberOnScreen = ""
@@ -61,7 +61,7 @@ class Calculator {
                     
                 }else{
                     NotificationCenter.default.post(Notification(name: Notification.Name("error"),
-                    userInfo: ["message": "Le nombre à deja un point !"]))
+                                                                 userInfo: ["message": "Le nombre à deja un point !"]))
                 }
             }
         }else{
@@ -100,10 +100,10 @@ class Calculator {
             
             if !isLastElementNumber {
                 NotificationCenter.default.post(Notification(name: Notification.Name("error"),
-                userInfo: ["message": "Commencez par rentrer un chiffre !"]))
+                                                             userInfo: ["message": "Commencez par rentrer un chiffre !"]))
             }else{
                 NotificationCenter.default.post(Notification(name: Notification.Name("error"),
-                userInfo: ["message": "Un operateur est déja mis !"]))
+                                                             userInfo: ["message": "Un operateur est déja mis !"]))
             }
         }
     }
@@ -127,6 +127,7 @@ class Calculator {
         }
         return result
     }
+    //MARK: - Operations and Equal
     
     func equal() {
         guard !expressionHaveResult else {
@@ -136,7 +137,7 @@ class Calculator {
         guard expressionIsCorrect else {
             numberOnScreen = ""
             return NotificationCenter.default.post(Notification(name: Notification.Name("error"),
-                                                            userInfo: ["message": "Entrez une expression correcte"]))
+                                                                userInfo: ["message": "Entrez une expression correcte"]))
         }
         guard expressionHaveEnoughElement else {
             return NotificationCenter.default.post(Notification(name: Notification.Name("error"),
@@ -147,7 +148,6 @@ class Calculator {
             return  NotificationCenter.default.post(Notification(name: Notification.Name("error"),
                                                                  userInfo: ["message": "Division par 0 impossible"]))
         }
-        // Create local copy of operations
         var operationsToReduce = elements
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {

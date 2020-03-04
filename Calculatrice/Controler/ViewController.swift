@@ -9,23 +9,32 @@
 import UIKit
 
 class ViewController: UIViewController {
+    //MARK - Outlets
+    
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
+    
     var calcul = Calculator()
-    // View Life cycles
+    
+    //MARK: -ViewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateText), name: Notification.Name("updateCalcul"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(displayError(_:)), name: Notification.Name("error"), object: nil)
         // Do any additional setup after loading the view.
     }
-    // View actions
+    //MARK: - Action Number
+    
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         guard let numberText = sender.title(for: .normal) else {
             return
         }
         calcul.addNumber(numberText)
     }
+    
+    //MARK: - Operations
+    
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
         calcul.addOperations("+")
     }
@@ -50,7 +59,8 @@ class ViewController: UIViewController {
     @objc func updateText() {
         textView.text = calcul.numberOnScreen
     }
-    // same alerte with title and message as parameter
+    //MARK: - Alert Message
+    
        func alert(_ message: String) {
            let alertVC = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
