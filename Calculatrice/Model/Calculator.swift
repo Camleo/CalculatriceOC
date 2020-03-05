@@ -19,7 +19,7 @@ class Calculator {
    private var expressionIsCorrect: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
     }
-    var expressionHaveEnoughElement: Bool {
+   private var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
     private var canAddOperator: Bool {

@@ -21,11 +21,6 @@ class CalculatriceTests: XCTestCase {
     // MARK: - test unitaire
     
     // test isCorrect
-    func testGivenexpressionHaveEnoughtElement_WhenStringgreaterThanOrEqualTo3_ThenReturnTrue() {
-        calculator.numberOnScreen = "2 + 3"
-        XCTAssertTrue(calculator.expressionHaveEnoughElement)
-    }
-    
     
     func testGivenCalculStringHaveResult_WhenReset_ThenCalculStringIsEmpty(){
         calculator.clearNumber()
