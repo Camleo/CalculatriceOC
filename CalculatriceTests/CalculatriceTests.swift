@@ -77,7 +77,7 @@ class CalculatriceTests: XCTestCase {
     
     
     
-    
+    // test several operation (+ & /)
     func testGivenCalculIsEmpty_WhenMakingVariousOperation_ThenResultIsGood(){
         calculator.addNumber("6")
         calculator.addOperations("+")
@@ -94,12 +94,12 @@ class CalculatriceTests: XCTestCase {
         calculator.addNumber("2")
         XCTAssertEqual(calculator.numberOnScreen, "2")
     }
-    
+    // test Dot
     func testGivenaddNumber_whenTappedDotNumber_ThenreturnNumber () {
         calculator.addNumber(".")
         XCTAssert(calculator.numberOnScreen == ".")
     }
-    
+    // test calculation with dot
     func testGivenNumberOnScreen_WhenDoOperations_ThenReceiveNotification() {
         expectation(forNotification: NSNotification.Name("error"), object: nil, handler: nil)
         calculator.numberOnScreen = "2.3"
@@ -107,7 +107,7 @@ class CalculatriceTests: XCTestCase {
         calculator.equal()
         waitForExpectations(timeout: 0.1,  handler: nil)
     }
-    
+    // test addition dot
     func testGivenNumberWithoutDecimal_whenAddingDot_ThenAddDot() {
         calculator.numberOnScreen = "2"
         calculator.addNumber(".")
@@ -120,17 +120,15 @@ class CalculatriceTests: XCTestCase {
         calculator.addNumber (".")
         waitForExpectations(timeout: 0.1, handler: nil)
     }
+    // test Division by 0
     func testGivenCalculStringIsEmpty_WhenMakeDivisionByZero_ThenHaveAnError() {
         calculator.numberOnScreen = "2 / 0"
         expectation(forNotification: NSNotification.Name(rawValue: "error"), object: nil, handler: nil)
         calculator.equal()
         waitForExpectations(timeout: 0.1, handler: nil)
-        
-        
     }
-    
+    // test Double tapped equal
     func testGivenCalculStringIsEmptyAnother_WhenTappedTwoTimesEqual_ThenHaveAnError() {
-        
         calculator.numberOnScreen = "2 + 2 = 4"
         expectation(forNotification: NSNotification.Name(rawValue: "error"), object: nil, handler: nil)
         calculator.equal()

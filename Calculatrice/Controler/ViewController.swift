@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         calcul.addOperations("*")
     }
     @IBAction func tappedDotButton(_ sender: UIButton) {
-        calcul.addNumber(".")
+        calcul.addNumber("0.")
     }
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         calcul.equal()
