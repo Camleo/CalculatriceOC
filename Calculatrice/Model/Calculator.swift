@@ -19,7 +19,7 @@ class Calculator {
    private var expressionIsCorrect: Bool {
         return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
     }
-   private var expressionHaveEnoughElement: Bool {
+   var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
     private var canAddOperator: Bool {
@@ -53,20 +53,21 @@ class Calculator {
             numberOnScreen = ""
         }
         if number == "." {
-            if !currentNumberHasDecimal {
-                if isLastElementNumber {
-                    numberOnScreen.append(".")
-                }else{
-                    numberOnScreen.append(number)
-                }
-            }else{
-                NotificationCenter.default.post(Notification(name: Notification.Name("error"),
-                                                             userInfo: ["message": "Le nombre a déjà un point!"]))
+           if !currentNumberHasDecimal {
+            if !isLastElementNumber {
+           numberOnScreen.append("0.")
+           }else{
+           numberOnScreen.append(".")
             }
-        }else{
-            numberOnScreen.append(number)
-        }
-    }
+           }else{
+           NotificationCenter.default.post(Notification(name: Notification.Name("error"),
+           userInfo: ["message": "Le nombre à deja un point !"]))
+           }
+           }else{
+           numberOnScreen.append(number)
+           }
+           
+           }
     func result() {
         if expressionHaveResult {
             if let result = elements.last {

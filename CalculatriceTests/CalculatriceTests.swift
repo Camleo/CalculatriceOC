@@ -19,15 +19,15 @@ class CalculatriceTests: XCTestCase {
     }
     
     // MARK: - test unitaire
-    
+    func testGivenexpressionHaveEnoughtElement_WhenStringgreaterThanOrEqualTo3_ThenReturnTrue() {
+           calculator.numberOnScreen = "2 + 3"
+           XCTAssertTrue(calculator.expressionHaveEnoughElement)
+       }
     // test isCorrect
     
     func testGivenCalculStringHaveResult_WhenReset_ThenCalculStringIsEmpty(){
         calculator.clearNumber()
-        
         XCTAssertEqual(calculator.numberOnScreen, "")
-        
-        
     }
     
     // test addOperator ( + )
@@ -91,8 +91,9 @@ class CalculatriceTests: XCTestCase {
     }
     // test Dot
     func testGivenaddNumber_whenTappedDotNumber_ThenreturnNumber () {
+        calculator.numberOnScreen = ""
         calculator.addNumber(".")
-        XCTAssert(calculator.numberOnScreen == ".")
+        XCTAssert(calculator.numberOnScreen == "0.")
     }
     // test calculation with dot
     func testGivenNumberOnScreen_WhenDoOperations_ThenReceiveNotification() {
